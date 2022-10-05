@@ -2,8 +2,15 @@
 	import Button from '../components/Button.svelte';
 	import TextList from '../components/TextList.svelte';
 
+	let columnName = '';
+
 	let sourceValue = '';
+
 	$: targetValue = sourceValue
+		.split('\n')
+		.filter((s) => s.length !== 0)
+		.map((s) => `${columnName} like '${s}'`)
+		.join('\n');
 </script>
 
 <h1 class="text-3xl font-bold">ShowShow</h1>
@@ -16,12 +23,17 @@
 
 	<div class="mb-2 mx-2 pt-6">
 		<p>Column Name:</p>
-		<div><input class="p-2 border-2 border-cyan-700" /></div>
+		<div>
+			<input
+				class="p-2 border-2 border-cyan-700"
+				bind:value={columnName}
+				placeholder="which column" />
+		</div>
 		<p class="mb-2">Start and End, add:</p>
 		<Button>( )</Button>
 		<p class="my-2">Each row (based on the column name you typed), add:</p>
-		<Button>or</Button>
-		<Button>like</Button>
+		<Button selected={true}>or</Button>
+		<Button selected={true}>like</Button>
 		<Button>front %</Button>
 		<Button>end %</Button>
 	</div>
