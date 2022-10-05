@@ -3,13 +3,19 @@
 	import TextList from '../components/TextList.svelte';
 
 	let columnName = '';
-
 	let sourceValue = '';
 
-	$: targetValue = sourceValue
-		.split('\n')
-		.filter((s) => s.length !== 0)
-		.map((s) => `${columnName} like '${s}'`)
+	let frontSymbolSelected = false;
+	let backSymbolSelected = false;
+	$: sourceItemList = sourceValue.split('\n').filter((s) => s.length !== 0);
+
+	$: targetValue = sourceItemList
+		.map(
+			(s, index) =>
+				`${index !== 0 ? 'OR' : ''}${columnName} LIKE '${frontSymbolSelected ? '%' : ''}${s}${
+					backSymbolSelected ? '%' : ''
+				}'`
+		)
 		.join('\n');
 </script>
 
@@ -34,8 +40,8 @@
 		<p class="my-2">Each row (based on the column name you typed), add:</p>
 		<Button selected={true}>or</Button>
 		<Button selected={true}>like</Button>
-		<Button>front %</Button>
-		<Button>end %</Button>
+		<Button bind:selected={frontSymbolSelected}>front %</Button>
+		<Button bind:selected={backSymbolSelected}>end %</Button>
 	</div>
 
 	<div class="mb-2">
