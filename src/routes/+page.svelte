@@ -6,6 +6,7 @@
 
 	let columnName = ''
 	let sourceValue = ''
+	let resultMessage = ''
 
 	let quoteSelected = false
 	let frontSymbolSelected = false
@@ -21,7 +22,8 @@
 
 	function copyText() {
 		navigator.clipboard.writeText(targetValue)
-		alert('Copied the text')
+		resultMessage = 'Text copied!'
+		setTimeout(() => resultMessage = '', 2000)
 	}
 
 	$: tempTargetValue = sourceItemList
@@ -39,13 +41,13 @@
 <h1 class="text-3xl font-bold">ShowShow</h1>
 <p class="mb-4">Convert your list to one SQL pattern.</p>
 <div class="flex flex-col md:flex-row">
-	<div class="mb-2 border-2">
+	<div class="mb-2">
 		<div>Text List:</div>
 		<TextList name="source" bind:text={sourceValue} />
 		<ActionButton on:click={clearSource}>Clear</ActionButton>
 	</div>
 
-	<div class="mb-2 mx-0 pt-0 border-2 md:mx-2 md:pt-6">
+	<div class="mb-2 mx-0 pt-0 md:mx-2 md:pt-6">
 		<p>Column Name:</p>
 		<div>
 			<input
@@ -62,9 +64,14 @@
 		<Button bind:selected={backSymbolSelected}>end %</Button>
 	</div>
 
-	<div class="mb-2 border-2">
+	<div class="mb-2">
 		<div>Result:</div>
 		<TextList name="result" disabled={true} bind:text={targetValue} />
-		<ActionButton on:click={copyText}>Copy</ActionButton>
+		{#if sourceValue}
+			<ActionButton on:click={copyText}>Copy</ActionButton>
+		{/if}
+		{#if sourceValue && resultMessage}
+			<div>{resultMessage}</div>
+		{/if}
 	</div>
 </div>
