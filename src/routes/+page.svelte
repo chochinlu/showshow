@@ -2,6 +2,7 @@
 	import Button from '../components/Button.svelte'
 	import TextList from '../components/TextList.svelte'
 	import DisabledButton from '../components/DisabledButton.svelte'
+	import ActionButton from '../components/ActionButton.svelte'
 
 	let columnName = ''
 	let sourceValue = ''
@@ -10,6 +11,18 @@
 	let frontSymbolSelected = false
 	let backSymbolSelected = false
 	$: sourceItemList = sourceValue.split('\n').filter((s) => s.length !== 0)
+
+	function clearSource() {
+		if (sourceValue === null || sourceValue === '') {
+			return
+		}
+		sourceValue = ''
+	}
+
+	function copyText() {
+		navigator.clipboard.writeText(targetValue)
+		alert('Copied the text')
+	}
 
 	$: tempTargetValue = sourceItemList
 		.map(
@@ -29,6 +42,7 @@
 	<div class="mb-2 border-2">
 		<div>Text List:</div>
 		<TextList name="source" bind:text={sourceValue} />
+		<ActionButton on:click={clearSource}>Clear</ActionButton>
 	</div>
 
 	<div class="mb-2 mx-0 pt-0 border-2 md:mx-2 md:pt-6">
@@ -51,5 +65,6 @@
 	<div class="mb-2 border-2">
 		<div>Result:</div>
 		<TextList name="result" disabled={true} bind:text={targetValue} />
+		<ActionButton on:click={copyText}>Copy</ActionButton>
 	</div>
 </div>
