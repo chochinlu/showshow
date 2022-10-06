@@ -6,6 +6,7 @@
   "printWidth": 100,
   "svelteBracketNewLine": false,
   "htmlWhitespaceSensitivity": "ignore",
+  "semi": false,
   "plugins": [
     "prettier-plugin-svelte"
   ],
