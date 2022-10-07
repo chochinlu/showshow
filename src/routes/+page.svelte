@@ -23,7 +23,7 @@
 	function copyText() {
 		navigator.clipboard.writeText(targetValue)
 		resultMessage = 'Text copied!'
-		setTimeout(() => resultMessage = '', 2000)
+		setTimeout(() => (resultMessage = ''), 2000)
 	}
 
 	$: tempTargetValue = sourceItemList

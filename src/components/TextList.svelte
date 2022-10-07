@@ -1,8 +1,7 @@
 <script>
-	export let name;
-	export let disabled = false;
-
-	export let text = '';
+	export let name
+	export let disabled = false
+	export let text = ''
 </script>
 
 <textarea

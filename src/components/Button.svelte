@@ -1,12 +1,12 @@
 <script>
-	export let selected = false;
+	export let selected = false
 
 	$: moreStyle = selected
 		? 'text-white bg-cyan-700'
-		: 'hover:bg-cyan-700 text-cyan-700 hover:text-white';
+		: 'hover:bg-cyan-700 text-cyan-700 hover:text-white'
 
 	function toggleSelected() {
-		selected = !selected;
+		selected = !selected
 	}
 </script>
 
